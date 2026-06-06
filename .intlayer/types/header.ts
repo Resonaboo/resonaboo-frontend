@@ -1,0 +1,22 @@
+/* eslint-disable */
+export default {
+  "key": "header",
+  "content": {
+    "nodeType": "translation",
+    "translation": {
+      "en": {
+        "home": "Home",
+        "plans": "Plans",
+        "status": "Status"
+      },
+      "pt-BR": {
+        "home": "Início",
+        "plans": "Planos",
+        "status": "Status"
+      }
+    }
+  },
+  "localIds": [
+    "header::local::src\\content\\header.content.ts"
+  ]
+} as const;

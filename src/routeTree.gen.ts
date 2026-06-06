@@ -9,119 +9,153 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PublicIndexRouteImport } from './routes/_public/index'
-import { Route as PrivateDashboardRouteRouteImport } from './routes/_private/dashboard/route'
-import { Route as PrivateProfileIndexRouteImport } from './routes/_private/profile/index'
-import { Route as PrivateDashboardIndexRouteImport } from './routes/_private/dashboard/index'
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
+import { Route as Char123LocaleChar125PublicIndexRouteImport } from './routes/{-$locale}/_public/index'
+import { Route as Char123LocaleChar125PublicPlansRouteImport } from './routes/{-$locale}/_public/plans'
+import { Route as Char123LocaleChar125PrivateDashboardsRouteImport } from './routes/{-$locale}/_private/dashboards'
 
-const PublicIndexRoute = PublicIndexRouteImport.update({
-  id: '/_public/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125RouteRoute =
+  Char123LocaleChar125RouteRouteImport.update({
+    id: '/{-$locale}',
+    path: '/{-$locale}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
-const PrivateDashboardRouteRoute = PrivateDashboardRouteRouteImport.update({
-  id: '/_private/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivateProfileIndexRoute = PrivateProfileIndexRouteImport.update({
-  id: '/_private/profile/',
-  path: '/profile/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivateDashboardIndexRoute = PrivateDashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PrivateDashboardRouteRoute,
-} as any)
+const Char123LocaleChar125PublicIndexRoute =
+  Char123LocaleChar125PublicIndexRouteImport.update({
+    id: '/_public/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125PublicPlansRoute =
+  Char123LocaleChar125PublicPlansRouteImport.update({
+    id: '/_public/plans',
+    path: '/plans',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125PrivateDashboardsRoute =
+  Char123LocaleChar125PrivateDashboardsRouteImport.update({
+    id: '/_private/dashboards',
+    path: '/dashboards',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/dashboard': typeof PrivateDashboardRouteRouteWithChildren
-  '/': typeof PublicIndexRoute
-  '/dashboard/': typeof PrivateDashboardIndexRoute
-  '/profile/': typeof PrivateProfileIndexRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
+  '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
+  '/{-$locale}/': typeof Char123LocaleChar125PublicIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof PublicIndexRoute
-  '/dashboard': typeof PrivateDashboardIndexRoute
-  '/profile': typeof PrivateProfileIndexRoute
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
+  '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
+  '/{-$locale}': typeof Char123LocaleChar125PublicIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_private/dashboard': typeof PrivateDashboardRouteRouteWithChildren
-  '/_public/': typeof PublicIndexRoute
-  '/_private/dashboard/': typeof PrivateDashboardIndexRoute
-  '/_private/profile/': typeof PrivateProfileIndexRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/{-$locale}/404': typeof Char123LocaleChar125404Route
+  '/{-$locale}/_private/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
+  '/{-$locale}/_public/plans': typeof Char123LocaleChar125PublicPlansRoute
+  '/{-$locale}/_public/': typeof Char123LocaleChar125PublicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dashboard' | '/' | '/dashboard/' | '/profile/'
+  fullPaths:
+    | '/{-$locale}'
+    | '/{-$locale}/404'
+    | '/{-$locale}/dashboards'
+    | '/{-$locale}/plans'
+    | '/{-$locale}/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/profile'
+  to:
+    | '/{-$locale}/404'
+    | '/{-$locale}/dashboards'
+    | '/{-$locale}/plans'
+    | '/{-$locale}'
   id:
     | '__root__'
-    | '/_private/dashboard'
-    | '/_public/'
-    | '/_private/dashboard/'
-    | '/_private/profile/'
+    | '/{-$locale}'
+    | '/{-$locale}/404'
+    | '/{-$locale}/_private/dashboards'
+    | '/{-$locale}/_public/plans'
+    | '/{-$locale}/_public/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PrivateDashboardRouteRoute: typeof PrivateDashboardRouteRouteWithChildren
-  PublicIndexRoute: typeof PublicIndexRoute
-  PrivateProfileIndexRoute: typeof PrivateProfileIndexRoute
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_public/': {
-      id: '/_public/'
+    '/{-$locale}': {
+      id: '/{-$locale}'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{-$locale}/404': {
+      id: '/{-$locale}/404'
+      path: '/404'
+      fullPath: '/{-$locale}/404'
+      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/_public/': {
+      id: '/{-$locale}/_public/'
       path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof PublicIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125PublicIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/_private/dashboard': {
-      id: '/_private/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof PrivateDashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/_public/plans': {
+      id: '/{-$locale}/_public/plans'
+      path: '/plans'
+      fullPath: '/{-$locale}/plans'
+      preLoaderRoute: typeof Char123LocaleChar125PublicPlansRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/_private/profile/': {
-      id: '/_private/profile/'
-      path: '/profile'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof PrivateProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_private/dashboard/': {
-      id: '/_private/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof PrivateDashboardIndexRouteImport
-      parentRoute: typeof PrivateDashboardRouteRoute
+    '/{-$locale}/_private/dashboards': {
+      id: '/{-$locale}/_private/dashboards'
+      path: '/dashboards'
+      fullPath: '/{-$locale}/dashboards'
+      preLoaderRoute: typeof Char123LocaleChar125PrivateDashboardsRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
   }
 }
 
-interface PrivateDashboardRouteRouteChildren {
-  PrivateDashboardIndexRoute: typeof PrivateDashboardIndexRoute
+interface Char123LocaleChar125RouteRouteChildren {
+  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
+  Char123LocaleChar125PrivateDashboardsRoute: typeof Char123LocaleChar125PrivateDashboardsRoute
+  Char123LocaleChar125PublicPlansRoute: typeof Char123LocaleChar125PublicPlansRoute
+  Char123LocaleChar125PublicIndexRoute: typeof Char123LocaleChar125PublicIndexRoute
 }
 
-const PrivateDashboardRouteRouteChildren: PrivateDashboardRouteRouteChildren = {
-  PrivateDashboardIndexRoute: PrivateDashboardIndexRoute,
-}
+const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
+  {
+    Char123LocaleChar125404Route: Char123LocaleChar125404Route,
+    Char123LocaleChar125PrivateDashboardsRoute:
+      Char123LocaleChar125PrivateDashboardsRoute,
+    Char123LocaleChar125PublicPlansRoute: Char123LocaleChar125PublicPlansRoute,
+    Char123LocaleChar125PublicIndexRoute: Char123LocaleChar125PublicIndexRoute,
+  }
 
-const PrivateDashboardRouteRouteWithChildren =
-  PrivateDashboardRouteRoute._addFileChildren(
-    PrivateDashboardRouteRouteChildren,
+const Char123LocaleChar125RouteRouteWithChildren =
+  Char123LocaleChar125RouteRoute._addFileChildren(
+    Char123LocaleChar125RouteRouteChildren,
   )
 
 const rootRouteChildren: RootRouteChildren = {
-  PrivateDashboardRouteRoute: PrivateDashboardRouteRouteWithChildren,
-  PublicIndexRoute: PublicIndexRoute,
-  PrivateProfileIndexRoute: PrivateProfileIndexRoute,
+  Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,31 @@
+[
+  {
+    "key": "header",
+    "content": {
+      "home": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Home",
+          "pt-BR": "Início"
+        }
+      },
+      "plans": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Plans",
+          "pt-BR": "Planos"
+        }
+      },
+      "status": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "Status",
+          "pt-BR": "Status"
+        }
+      }
+    },
+    "location": "local",
+    "localId": "header::local::src\\content\\header.content.ts",
+    "filePath": "src\\content\\header.content.ts"
+  }
+]
