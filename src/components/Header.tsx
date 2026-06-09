@@ -94,7 +94,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
             <LocalizedLink
-              to="/404"
+              to="/auth/sign-in"
               className={"button-icon-link w-9 h-9"}
             >
               <LogIn className="stroke-yellow-400" />
