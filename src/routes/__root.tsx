@@ -5,19 +5,26 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-
+import Cookies from 'js-cookie'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
+import { Toaster } from '#/components/ui/sonner'
 
 
 interface MyRouterContext {
-  queryClient: QueryClient
+  queryClient: QueryClient,
+  authInfo: string | undefined
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  beforeLoad: () => {
+    return {
+      authInfo: Cookies.get('auth_info')
+    };
+  },
   head: () => ({
     meta: [
       {
@@ -48,6 +55,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <Toaster />
         {children}
         <TanStackDevtools
           config={{

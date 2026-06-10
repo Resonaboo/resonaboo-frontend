@@ -13,7 +13,8 @@
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "generate:types": "openapi-typescript http://localhost:3001/docs/openapi.json -o src/lib/openapi.ts"
   },
   "dependencies": {
     "@base-ui/react": "latest",
@@ -41,8 +42,10 @@
     "embla-carousel-react": "latest",
     "input-otp": "latest",
     "intlayer": "latest",
+    "js-cookie": "latest",
     "lucide-react": "latest",
     "next-themes": "latest",
+    "openapi-fetch": "latest",
     "react": "latest",
     "react-day-picker": "latest",
     "react-dom": "latest",
@@ -64,15 +67,20 @@
     "@tanstack/devtools-vite": "latest",
     "@testing-library/dom": "latest",
     "@testing-library/react": "latest",
+    "@types/js-cookie": "latest",
     "@types/node": "latest",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "latest",
     "jsdom": "latest",
-    "typescript": "latest",
+    "openapi-typescript": "latest",
+    "typescript": "^6.0.0",
     "vite": "latest",
     "vite-intlayer": "latest",
     "vitest": "latest"
+  },
+  "overrides": {
+    "typescript": "^6.0.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

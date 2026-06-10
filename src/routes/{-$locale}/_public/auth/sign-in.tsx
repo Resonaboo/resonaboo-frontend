@@ -1,5 +1,5 @@
 import { useForm } from "@tanstack/react-form"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import z from "zod"
 import {
   Card,
@@ -19,6 +19,9 @@ import {
 import { Input } from "#/components/ui/input"
 import { LocalizedLink } from "#/components/localized-links"
 import { Button } from "#/components/ui/button"
+import { useApi } from "#/lib"
+import { toast } from "sonner"
+import { useIntlayer } from "react-intlayer"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-in")({
   component: RouteComponent,
@@ -33,6 +36,10 @@ const loginSchema = z.object({
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
+
+  const api = useApi()
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -42,18 +49,68 @@ function RouteComponent() {
     validators: {
       onChange: loginSchema,
     },
+    onSubmit(props) {
+      api.POST("/auth/login", {
+        body: props.value,
+      })
+      .then((res) => {
+          if (res.response.status !== 200 && res.error) {
+            const error = res.error
+            toast.error(`${error.code}: ${error.error}`, {
+              duration: 3000,
+              position: "bottom-center",
+              className: "bg-red-400",
+              style: {
+                color: "white",
+                backgroundColor: "red",
+                borderColor: "red",
+              },
+            })
+            return
+          }
+
+          toast.success(`👋 Logged in successfully!`, {
+            duration: 1000,
+            onAutoClose: () => {
+              navigate({ to: "/{-$locale}" })
+            },
+            position: "bottom-center",
+            className: "bg-green-400",
+            style: {
+              color: "white",
+              backgroundColor: "green",
+              borderColor: "green",
+            },
+          })
+        })
+        .catch((error) => {
+          toast.error(`${error}`, {
+            duration: 3000,
+            position: "bottom-center",
+            className: "bg-red-400",
+            style: {
+              color: "white",
+              backgroundColor: "red",
+              borderColor: "red",
+            },
+          })
+        })
+    },
   })
+
+  const content = useIntlayer("sign-in")
 
   return (
     <section className="w-full flex flex-col items-center py-10 border-t border-white/15">
       <div className="container min-h-[calc(100vh-248px)] flex items-center justify-center">
         <Card className="w-xl h-fit bg-(--ink)/10 border border-amber-400/15 shadow-md shadow-amber-400/15">
           <CardHeader className="flex flex-col items-center justify-center">
-            <CardTitle>Login</CardTitle>
-            <CardDescription>Login with your account</CardDescription>
+            <CardTitle>{content.title}</CardTitle>
+            <CardDescription>{content.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <form
+              id="sign-in-form"
               onSubmit={(e) => {
                 e.preventDefault()
                 form.handleSubmit()
@@ -67,7 +124,7 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>{content.email}</FieldLabel>
                         <Input
                           id={field.name}
                           type="email"
@@ -76,7 +133,7 @@ function RouteComponent() {
                           onBlur={field.handleBlur}
                           onChange={(e) => field.handleChange(e.target.value)}
                           aria-invalid={isInvalid}
-                          placeholder="example@gmail.com"
+                          placeholder={content.email_placeholder}
                           autoComplete="on"
                         />
                         {isInvalid && (
@@ -93,7 +150,7 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>{content.password}</FieldLabel>
                         <Input
                           id={field.name}
                           type="password"
@@ -167,8 +224,8 @@ function RouteComponent() {
               >
                 Reset
               </Button>
-              <Button type="submit" form="bug-report-form">
-                Sign-In
+              <Button type="submit" form="sign-in-form">
+                {content.sign_in}
               </Button>
             </Field>
           </CardFooter>

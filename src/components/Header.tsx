@@ -52,6 +52,8 @@ export function Header() {
             <div className="md:flex hidden items-center ml-5 gap-x-1">
               {menuItems.map((item) => (
                 <LocalizedLink
+                  key={item.label}
+                  id={`navbar-link-${item.label}`}
                   to={item.to}
                   className={"navbar-link text-(--paper)"}
                   activeProps={{
@@ -66,20 +68,23 @@ export function Header() {
 
           <div className="flex items-center justify-end gap-x-2">
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button
-                  variant="outline"
-                  size="icon-sm"
-                  className={"bg-yellow-400/10 border-amber-400/50"}
-                >
-                  <Languages className="stroke-yellow-400 scale-120" />
-                </Button>
+              <DropdownMenuTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon-sm"
+                    className={"bg-yellow-400/10 border-amber-400/50"}
+                  />
+                }
+              >
+                <Languages className="stroke-yellow-400 scale-120" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className={"flex flex-col px-2"}>
                 {availableLocales.map((localeEl) => {
                   return (
-                    <DropdownMenuItem className={"p-0"}>
+                    <DropdownMenuItem key={localeEl} className={"p-0"}>
                       <LocalizedLink
+                        id={`navbar-dropdown-${localeEl}`}
                         className="w-full h-full uppercase px-2 py-3 font-semibold"
                         aria-current={localeEl === locale ? "page" : undefined}
                         onClick={() => setLocale(localeEl)}
@@ -106,6 +111,7 @@ export function Header() {
         <div className="flex items-center justify-between w-fit bg-black/70 backdrop-blur-sm px-2 py-1 border border-amber-400/20 shadow shadow-amber-400/10">
           {menuItems.map((item) => (
             <LocalizedLink
+              key={item.label}
               to={item.to}
               className={"navbar-link text-(--paper)"}
               activeProps={{
