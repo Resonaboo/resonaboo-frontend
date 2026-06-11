@@ -1,6 +1,8 @@
 import { Languages, LogIn } from "lucide-react"
 import { Button } from "./ui/button"
-import { createLink, Link, useLocation } from "@tanstack/react-router"
+import {
+  useLocation,
+} from "@tanstack/react-router"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +11,11 @@ import {
 } from "./ui/dropdown-menu"
 import { useIntlayer, useLocale } from "react-intlayer"
 import {
-  getHTMLTextDir,
-  getLocaleName,
   getPathWithoutLocale,
   getPrefix,
-  Locales,
 } from "intlayer"
 import { LocalizedLink, type To } from "./localized-links"
+import Cookies from "js-cookie"
 
 type MenuItem = {
   label: string
@@ -31,11 +31,19 @@ export function Header() {
 
   const content = useIntlayer("header")
 
+  const authInfo = Cookies.get("auth_info")
+
   const menuItems: MenuItem[] = [
-    { label: content.home, to: "/" },
+    { label: content.home, to: "/home" },
     { label: content.plans, to: "/plans" },
     { label: content.status, to: "/404" },
-  ]
+  ] as const
+
+  const authMenuItems: MenuItem[] = [
+    { label: content.dashboard, to: "/dashboard" },
+    { label: content.settings, to: "/settings" },
+    { label: content.logout, to: "/auth/sign-out" },
+  ] as const
 
   return (
     <>
@@ -98,12 +106,48 @@ export function Header() {
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
-            <LocalizedLink
-              to="/auth/sign-in"
-              className={"button-icon-link w-9 h-9"}
-            >
-              <LogIn className="stroke-yellow-400" />
-            </LocalizedLink>
+            {
+              authInfo ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger
+                    render={
+                      <Button
+                        variant="outline"
+                        size="icon-sm"
+                        className={"bg-yellow-400/10 border-amber-400/50"}
+                      />
+                    }
+                  >
+                    <img src="https://placehold.co/36?text=N" alt="Avatar" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className={"flex flex-col px-2"}>
+                    {authMenuItems.map((item) => {
+                      return (
+                        <DropdownMenuItem key={item.label} className={"p-0"} variant={item.label === content.logout ? "destructive" : "default"}>
+                          <LocalizedLink
+                            id={`navbar-dropdown-${item.label}`}
+                            className="w-full h-full uppercase px-2 py-3 font-semibold"
+                            aria-current={item.label === locale ? "page" : undefined}
+                            onClick={() => setLocale(item.label)}
+                            params={{ locale: getPrefix(item.label).localePrefix }}
+                            to={item.to as To}
+                          >
+                            {item.label}
+                          </LocalizedLink>
+                        </DropdownMenuItem>
+                      )
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <LocalizedLink
+                  to="/auth/sign-in"
+                  className={"button-icon-link w-9 h-9"}
+                >
+                  <LogIn className="stroke-yellow-400" />
+                </LocalizedLink>
+              )
+            }
           </div>
         </nav>
       </header>

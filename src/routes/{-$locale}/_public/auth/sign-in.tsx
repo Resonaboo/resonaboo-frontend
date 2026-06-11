@@ -1,5 +1,5 @@
 import { useForm } from "@tanstack/react-form"
-import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router"
 import z from "zod"
 import {
   Card,
@@ -24,6 +24,11 @@ import { toast } from "sonner"
 import { useIntlayer } from "react-intlayer"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-in")({
+  beforeLoad: async ({ context }) => {
+    if (context.authInfo) {
+      throw redirect({ to: "/{-$locale}/home" })
+    }
+  },
   component: RouteComponent,
 })
 
@@ -72,7 +77,7 @@ function RouteComponent() {
           toast.success(`👋 Logged in successfully!`, {
             duration: 1000,
             onAutoClose: () => {
-              navigate({ to: "/{-$locale}" })
+              navigate({ to: "/{-$locale}/home" })
             },
             position: "bottom-center",
             className: "bg-green-400",

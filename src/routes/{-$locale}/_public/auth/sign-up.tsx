@@ -1,5 +1,5 @@
 import { useForm } from "@tanstack/react-form"
-import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router"
 import z from "zod"
 import { Button } from "#/components/ui/button"
 import {
@@ -23,6 +23,11 @@ import { LocalizedLink } from "#/components/localized-links"
 import { useIntl, useIntlayer } from "react-intlayer"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-up")({
+  beforeLoad: async ({ context }) => {
+    if (context.authInfo) {
+      throw redirect({ to: "/{-$locale}/home" })
+    }
+  },
   component: RouteComponent,
 })
 

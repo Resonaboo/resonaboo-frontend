@@ -3,7 +3,7 @@ import { Hero } from '#/components/Hero'
 import { createFileRoute } from '@tanstack/react-router'
 import { useIntlayer } from 'react-intlayer'
 
-export const Route = createFileRoute('/{-$locale}/_public/')({ component: Home })
+export const Route = createFileRoute('/{-$locale}/_public/home')({ component: Home })
 
 function Home() {
   const content = useIntlayer("home-page")
