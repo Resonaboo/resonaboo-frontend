@@ -19,8 +19,8 @@ import {
 import { Input } from "#/components/ui/input"
 import { useApi } from "#/lib"
 import { toast } from "sonner"
+import { useIntlayer } from "react-intlayer"
 import { LocalizedLink } from "#/components/localized-links"
-import { useIntl, useIntlayer } from "react-intlayer"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-up")({
   beforeLoad: async ({ context }) => {
@@ -41,6 +41,10 @@ const signUpSchema = z.object({
     .string()
     .min(6, "Password must be at least 6 characters long.")
     .max(16, "Password must be at most 16 characters long."),
+  confirm_password: z
+    .string()
+    .min(6, "Confirm password must be at least 6 characters long.")
+    .max(16, "Confirm password must be at most 16 characters long."),
 })
 
 function RouteComponent() {
@@ -53,11 +57,25 @@ function RouteComponent() {
       username: "",
       email: "",
       password: "",
+      confirm_password: "",
     },
     validators: {
       onChange: signUpSchema,
     },
     onSubmit(props) {
+      if (props.value.password !== props.value.confirm_password) {
+        toast.error(content.passwords_do_not_match, {
+          duration: 3000,
+          position: "bottom-center",
+          className: "bg-red-400",
+          style: {
+            color: "white",
+            backgroundColor: "red",
+            borderColor: "red",
+          },
+        })
+        return
+      }
       api
         .POST("/auth/register", {
           body: {
@@ -116,7 +134,7 @@ function RouteComponent() {
   return (
     <section className="w-full flex flex-col items-center py-10 border-t border-white/15">
       <div className="container min-h-[calc(100vh-248px)] flex items-center justify-center">
-        <Card className="w-xl h-fit bg-(--ink)/10 border border-amber-400/15 shadow-md shadow-amber-400/15">
+        <Card className="w-xl h-fit bg-black/40 border border-amber-400/15 shadow-md shadow-amber-400/15">
           <CardHeader className="flex flex-col items-center justify-center">
             <CardTitle>{content.title}</CardTitle>
             <CardDescription>{content.description}</CardDescription>
@@ -137,7 +155,9 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>{content.username}</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>
+                          {content.username}
+                        </FieldLabel>
                         <Input
                           id={field.name}
                           type="username"
@@ -163,7 +183,9 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>{content.email}</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>
+                          {content.email}
+                        </FieldLabel>
                         <Input
                           id={field.name}
                           type="email"
@@ -189,7 +211,37 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>{content.password}</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>
+                          {content.password}
+                        </FieldLabel>
+                        <Input
+                          id={field.name}
+                          type="password"
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          aria-invalid={isInvalid}
+                          placeholder="********"
+                          autoComplete="off"
+                        />
+                        {isInvalid && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </Field>
+                    )
+                  }}
+                />
+                <form.Field
+                  name="confirm_password"
+                  children={(field) => {
+                    const isInvalid =
+                      field.state.meta.isTouched && !field.state.meta.isValid
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <FieldLabel htmlFor={field.name}>
+                          {content.confirm_password}
+                        </FieldLabel>
                         <Input
                           id={field.name}
                           type="password"
@@ -212,16 +264,16 @@ function RouteComponent() {
             </form>
           </CardContent>
           <CardFooter>
-            <Field orientation="horizontal" className="justify-end">
+            <Field orientation="vertical">
+              <Button type="submit" form="sign-up-form">
+                {content.sign_up}
+              </Button>
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => form.reset()}
+                render={<LocalizedLink to={"/auth/sign-in"} />}
               >
-                Reset
-              </Button>
-              <Button type="submit" form="sign-up-form">
-                {content.sign_up}
+                {content.sign_in}
               </Button>
             </Field>
           </CardFooter>

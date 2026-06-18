@@ -16,7 +16,7 @@ export function FeatureCard({
   description: string
 }) {
   return (
-    <Card className="max-w-80 bg-(--ink)/10 shadow-md shadow-amber-400/15">
+    <Card className="max-w-80 bg-black/40 shadow-md shadow-amber-400/15">
       <CardContent className="flex flex-col items-center">
         <img src={image} alt="" />
       </CardContent>

@@ -11,9 +11,9 @@ const headerContent = {
       en: "Plans",
       "pt-BR": "Planos",
     }),
-    status: t({
-      en: "Status",
-      "pt-BR": "Status",
+    documentation: t({
+      en: "Documentation",
+      "pt-BR": "Documentação",
     }),
     dashboard: t({
       en: "Dashboard",

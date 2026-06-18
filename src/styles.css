@@ -190,7 +190,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/*
 a {
   transition: border-color 0.2s, color 0.2s;
 }
@@ -198,7 +198,7 @@ a {
 a:hover {
   color: var(--color-yellow-300);
 }
-
+*/
 code {
   font-size: 0.9em;
   border: 1px solid var(--line);
@@ -324,7 +324,10 @@ a {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-[color-mix(in_oklab,var(--color-yellow-500),black_85%)] text-foreground;
+    /*@apply bg-[color-mix(in_oklab,var(--color-yellow-500),black_85%)] text-foreground;*/
+    @apply bg-radial-[at_top] from-[color-mix(in_oklab,var(--color-yellow-500),black_70%)] to-[color-mix(in_oklab,var(--color-yellow-500),black_90%)];
+    background-attachment: fixed;
+    /*background-repeat: no-repeat*/
   }
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;

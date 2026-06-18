@@ -23,9 +23,21 @@ const signInContent = {
       en: "Password",
       "pt-BR": "Senha",
     }),
+    remember_me: t({
+      en: "Remember me",
+      "pt-BR": "Lembre-me",
+    }),
+    forgot_password: t({
+      en: "Forgot password",
+      "pt-BR": "Esqueci minha senha",
+    }),
     sign_in: t({
       en: "Sign in",
       "pt-BR": "Entrar",
+    }),
+    sign_up: t({
+      en: "Create account",
+      "pt-BR": "Criar conta",
     }),
   },
 } satisfies Dictionary

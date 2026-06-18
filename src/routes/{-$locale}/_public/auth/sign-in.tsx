@@ -34,7 +34,8 @@ export const Route = createFileRoute("/{-$locale}/_public/auth/sign-in")({
 
 const loginSchema = z.object({
   email: z.email("Invalid email address."),
-  password: z.string()
+  password: z
+    .string()
     .min(6, "Password must be at least 6 characters long.")
     .max(16, "Password must be at most 16 characters long."),
   rememberMe: z.boolean(),
@@ -55,10 +56,11 @@ function RouteComponent() {
       onChange: loginSchema,
     },
     onSubmit(props) {
-      api.POST("/auth/login", {
-        body: props.value,
-      })
-      .then((res) => {
+      api
+        .POST("/auth/login", {
+          body: props.value,
+        })
+        .then((res) => {
           if (res.response.status !== 200 && res.error) {
             const error = res.error
             toast.error(`${error.code}: ${error.error}`, {
@@ -108,10 +110,10 @@ function RouteComponent() {
   return (
     <section className="w-full flex flex-col items-center py-10 border-t border-white/15">
       <div className="container min-h-[calc(100vh-248px)] flex items-center justify-center">
-        <Card className="w-xl h-fit bg-(--ink)/10 border border-amber-400/15 shadow-md shadow-amber-400/15">
+        <Card className="w-xl h-fit bg-black/40 border border-amber-400/15 shadow-md shadow-amber-400/15">
           <CardHeader className="flex flex-col items-center justify-center">
             <CardTitle>{content.title}</CardTitle>
-            <CardDescription>{content.description}</CardDescription>
+            <CardDescription className="text-center">{content.description}</CardDescription>
           </CardHeader>
           <CardContent>
             <form
@@ -129,7 +131,9 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>{content.email}</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>
+                          {content.email}
+                        </FieldLabel>
                         <Input
                           id={field.name}
                           type="email"
@@ -155,7 +159,19 @@ function RouteComponent() {
                       field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor={field.name}>{content.password}</FieldLabel>
+                        <div className="flex items-start justify-between w-full">
+                          <FieldLabel htmlFor={field.name}>
+                            {content.password}
+                          </FieldLabel>
+                          <Button
+                            type="button"
+                            variant="link"
+                            className="px-0 h-auto font-normal text-[8px] min-[350px]:text-[10px]"
+                            render={<LocalizedLink to={"/auth/forgot-password"} />}
+                          >
+                            {content.forgot_password}
+                          </Button>
+                        </div>
                         <Input
                           id={field.name}
                           type="password"
@@ -199,7 +215,7 @@ function RouteComponent() {
                           htmlFor={field.name}
                           className="cursor-pointer select-none font-bold"
                         >
-                          Remember Me
+                          {content.remember_me}
                         </FieldLabel>
                         {isInvalid && (
                           <FieldError errors={field.state.meta.errors} />
@@ -210,27 +226,18 @@ function RouteComponent() {
                 />
               </FieldGroup>
             </form>
-
-            <div className="mt-8 flex items-center">
-              <LocalizedLink
-                to="/auth/sign-up"
-                className="font-bold text-yellow-400 underline"
-              >
-                Create account
-              </LocalizedLink>
-            </div>
           </CardContent>
           <CardFooter>
-            <Field orientation="horizontal" className="justify-end">
+            <Field orientation="vertical" className="justify-end">
+              <Button type="submit" form="sign-in-form">
+                {content.sign_in}
+              </Button>
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => form.reset()}
+                render={<LocalizedLink to={"/auth/sign-up"} />}
               >
-                Reset
-              </Button>
-              <Button type="submit" form="sign-in-form">
-                {content.sign_in}
+                {content.sign_up}
               </Button>
             </Field>
           </CardFooter>

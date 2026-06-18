@@ -1,14 +1,14 @@
-import { FaYoutube, FaTwitch, FaKickstarter, FaTiktok } from 'react-icons/fa'
-import { Button } from './ui/button'
-import { createLink } from '@tanstack/react-router'
-import { useIntlayer } from 'react-intlayer'
+import { FaYoutube, FaTwitch, FaKickstarter, FaTiktok } from "react-icons/fa"
+import { Button } from "./ui/button"
+import { createLink } from "@tanstack/react-router"
+import { useIntlayer } from "react-intlayer"
 
 export function Hero() {
   const LinkButton = createLink(Button)
-  const content = useIntlayer("home-page");
+  const content = useIntlayer("home-page")
 
   return (
-    <section className="w-full flex justify-center bg-linear-to-br from-[color-mix(in_oklab,var(--color-yellow-500),black_70%)] to-[color-mix(in_oklab,var(--color-yellow-500),black_95%)]">
+    <section className="w-full flex justify-center">
       <div className="container py-16">
         <img
           src="https://placehold.co/96?text=R"
@@ -18,7 +18,7 @@ export function Hero() {
         <h1 className="min-w-[375px]:text-5xl text-4xl font-extrabold text-(--paper)">
           RESONABOO
         </h1>
-        <p className="text-sm font-semibold mt-2 mb-10 max-w-[48ch] text-(--paper)">
+        <p className="text-sm font-semibold mt-2 mb-10 max-w-[48ch] text-(--paper-foreground)">
           {content.description}
         </p>
 
@@ -36,31 +36,33 @@ export function Hero() {
               {content.platforms}
             </span>
             <div className="flex items-center justify-center h-6 gap-x-3">
-              <FaYoutube className="fill-(--paper)" size={20} />{' '}
-              <FaTwitch className="fill-(--paper)" size={20} />{' '}
-              <FaKickstarter className="fill-(--paper)" size={20} />{' '}
+              <FaYoutube className="fill-(--paper)" size={20} />{" "}
+              <FaTwitch className="fill-(--paper)" size={20} />{" "}
+              <FaKickstarter className="fill-(--paper)" size={20} />{" "}
               <FaTiktok className="fill-(--paper)" size={20} />
             </div>
           </div>
         </div>
 
         <div className="w-full mt-10 flex items-center max-[430px]:justify-center gap-x-5">
-          <LinkButton
-            to="#features"
-            variant="default"
-            className="font-bold flex items-center"
-            size={'sm'}
-          >
-            {content.features}
-          </LinkButton>
-          <LinkButton
-            to="#contacts"
-            variant="default"
-            className="font-bold flex items-center"
-            size={'sm'}
-          >
-            {content.contact_me}
-          </LinkButton>
+          <Button
+            render={
+              <a
+                href="#features"
+              >
+                {content.features}
+              </a>
+            }
+          ></Button>
+          <Button
+            render={
+              <a
+                href="#contacts"
+              >
+                {content.contact_me}
+              </a>
+            }
+          ></Button>
         </div>
       </div>
     </section>

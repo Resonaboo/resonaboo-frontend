@@ -35,6 +35,18 @@ const signUpContent = {
       en: "Sign Up",
       "pt-BR": "Criar Conta",
     }),
+    sign_in: t({
+      en: "Sign In",
+      "pt-BR": "Entrar",
+    }),
+    confirm_password: t({
+      en: "Confirm Password",
+      "pt-BR": "Confirmar Senha",
+    }),
+    passwords_do_not_match: t({
+      en: "Passwords do not match",
+      "pt-BR": "As senhas não conferem",
+    }),
   },
 } satisfies Dictionary
 

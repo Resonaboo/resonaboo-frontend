@@ -36,7 +36,7 @@ export function Header() {
   const menuItems: MenuItem[] = [
     { label: content.home, to: "/home" },
     { label: content.plans, to: "/plans" },
-    { label: content.status, to: "/404" },
+    { label: content.documentation, to: "/404" },
   ] as const
 
   const authMenuItems: MenuItem[] = [
@@ -47,10 +47,10 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 w-full flex justify-center border-b border-white/15 bg-linear-to-bl from-black to-[color-mix(in_oklab,var(--color-yellow-500),black_70%)]">
+      <header className="sticky top-0 z-10 w-full flex justify-center border-b border-white/15 bg-black/60 backdrop-blur-2xl">
         <nav className="container flex justify-between items-center py-4">
           <div className="flex items-center gap-x-2">
-            <LocalizedLink to={"/"} className="flex items-center gap-x-2">
+            <LocalizedLink to={"/home"} className="flex items-center gap-x-2">
               <img src="https://placehold.co/40?text=R" alt="" />
               <span className="max-[375px]:hidden  font-extrabold text-md text-(--paper)">
                 RESONABOO
