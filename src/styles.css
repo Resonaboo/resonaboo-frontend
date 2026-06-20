@@ -325,7 +325,7 @@ a {
   }
   body {
     /*@apply bg-[color-mix(in_oklab,var(--color-yellow-500),black_85%)] text-foreground;*/
-    @apply bg-radial-[at_top] from-[color-mix(in_oklab,var(--color-yellow-500),black_70%)] to-[color-mix(in_oklab,var(--color-yellow-500),black_90%)];
+    @apply bg-radial-[at_top] from-[color-mix(in_oklab,var(--color-yellow-500),black_75%)] to-[color-mix(in_oklab,var(--color-yellow-500),black_90%)];
     background-attachment: fixed;
     /*background-repeat: no-repeat*/
   }

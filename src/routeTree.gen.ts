@@ -13,8 +13,8 @@ import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$local
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
 import { Route as Char123LocaleChar125PublicPlansRouteImport } from './routes/{-$locale}/_public/plans'
 import { Route as Char123LocaleChar125PublicHomeRouteImport } from './routes/{-$locale}/_public/home'
-import { Route as Char123LocaleChar125PrivateDashboardsRouteImport } from './routes/{-$locale}/_private/dashboards'
 import { Route as Char123LocaleChar125PublicAuthRouteRouteImport } from './routes/{-$locale}/_public/auth/route'
+import { Route as Char123LocaleChar125PrivateDashboardIndexRouteImport } from './routes/{-$locale}/_private/dashboard/index'
 import { Route as Char123LocaleChar125PublicAuthSignUpRouteImport } from './routes/{-$locale}/_public/auth/sign-up'
 import { Route as Char123LocaleChar125PublicAuthSignInRouteImport } from './routes/{-$locale}/_public/auth/sign-in'
 
@@ -41,16 +41,16 @@ const Char123LocaleChar125PublicHomeRoute =
     path: '/home',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125PrivateDashboardsRoute =
-  Char123LocaleChar125PrivateDashboardsRouteImport.update({
-    id: '/_private/dashboards',
-    path: '/dashboards',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
 const Char123LocaleChar125PublicAuthRouteRoute =
   Char123LocaleChar125PublicAuthRouteRouteImport.update({
     id: '/_public/auth',
     path: '/auth',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125PrivateDashboardIndexRoute =
+  Char123LocaleChar125PrivateDashboardIndexRouteImport.update({
+    id: '/_private/dashboard/',
+    path: '/dashboard/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125PublicAuthSignUpRoute =
@@ -70,32 +70,32 @@ export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
   '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
+  '/{-$locale}/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
   '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
+  '/{-$locale}/dashboard': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/_public/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/_private/dashboards': typeof Char123LocaleChar125PrivateDashboardsRoute
   '/{-$locale}/_public/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/_public/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/_public/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
   '/{-$locale}/_public/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
+  '/{-$locale}/_private/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -103,31 +103,31 @@ export interface FileRouteTypes {
     | '/{-$locale}'
     | '/{-$locale}/404'
     | '/{-$locale}/auth'
-    | '/{-$locale}/dashboards'
     | '/{-$locale}/home'
     | '/{-$locale}/plans'
     | '/{-$locale}/auth/sign-in'
     | '/{-$locale}/auth/sign-up'
+    | '/{-$locale}/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
     | '/{-$locale}/404'
     | '/{-$locale}/auth'
-    | '/{-$locale}/dashboards'
     | '/{-$locale}/home'
     | '/{-$locale}/plans'
     | '/{-$locale}/auth/sign-in'
     | '/{-$locale}/auth/sign-up'
+    | '/{-$locale}/dashboard'
   id:
     | '__root__'
     | '/{-$locale}'
     | '/{-$locale}/404'
     | '/{-$locale}/_public/auth'
-    | '/{-$locale}/_private/dashboards'
     | '/{-$locale}/_public/home'
     | '/{-$locale}/_public/plans'
     | '/{-$locale}/_public/auth/sign-in'
     | '/{-$locale}/_public/auth/sign-up'
+    | '/{-$locale}/_private/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,18 +164,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125PublicHomeRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_private/dashboards': {
-      id: '/{-$locale}/_private/dashboards'
-      path: '/dashboards'
-      fullPath: '/{-$locale}/dashboards'
-      preLoaderRoute: typeof Char123LocaleChar125PrivateDashboardsRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
     '/{-$locale}/_public/auth': {
       id: '/{-$locale}/_public/auth'
       path: '/auth'
       fullPath: '/{-$locale}/auth'
       preLoaderRoute: typeof Char123LocaleChar125PublicAuthRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/_private/dashboard/': {
+      id: '/{-$locale}/_private/dashboard/'
+      path: '/dashboard'
+      fullPath: '/{-$locale}/dashboard/'
+      preLoaderRoute: typeof Char123LocaleChar125PrivateDashboardIndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/_public/auth/sign-up': {
@@ -216,9 +216,9 @@ const Char123LocaleChar125PublicAuthRouteRouteWithChildren =
 interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
   Char123LocaleChar125PublicAuthRouteRoute: typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  Char123LocaleChar125PrivateDashboardsRoute: typeof Char123LocaleChar125PrivateDashboardsRoute
   Char123LocaleChar125PublicHomeRoute: typeof Char123LocaleChar125PublicHomeRoute
   Char123LocaleChar125PublicPlansRoute: typeof Char123LocaleChar125PublicPlansRoute
+  Char123LocaleChar125PrivateDashboardIndexRoute: typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
@@ -226,10 +226,10 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125404Route: Char123LocaleChar125404Route,
     Char123LocaleChar125PublicAuthRouteRoute:
       Char123LocaleChar125PublicAuthRouteRouteWithChildren,
-    Char123LocaleChar125PrivateDashboardsRoute:
-      Char123LocaleChar125PrivateDashboardsRoute,
     Char123LocaleChar125PublicHomeRoute: Char123LocaleChar125PublicHomeRoute,
     Char123LocaleChar125PublicPlansRoute: Char123LocaleChar125PublicPlansRoute,
+    Char123LocaleChar125PrivateDashboardIndexRoute:
+      Char123LocaleChar125PrivateDashboardIndexRoute,
   }
 
 const Char123LocaleChar125RouteRouteWithChildren =

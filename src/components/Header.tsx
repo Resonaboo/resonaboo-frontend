@@ -1,8 +1,6 @@
 import { Languages, LogIn } from "lucide-react"
 import { Button } from "./ui/button"
-import {
-  useLocation,
-} from "@tanstack/react-router"
+import { useLocation } from "@tanstack/react-router"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import { useIntlayer, useLocale } from "react-intlayer"
-import {
-  getPathWithoutLocale,
-  getPrefix,
-} from "intlayer"
+import { getPathWithoutLocale, getPrefix } from "intlayer"
 import { LocalizedLink, type To } from "./localized-links"
 import Cookies from "js-cookie"
 
@@ -59,17 +54,23 @@ export function Header() {
 
             <div className="md:flex hidden items-center ml-5 gap-x-1">
               {menuItems.map((item) => (
-                <LocalizedLink
+                <Button
+                  className={"px-2"}
+                  variant={"ghost"}
                   key={item.label}
-                  id={`navbar-link-${item.label}`}
-                  to={item.to}
-                  className={"navbar-link text-(--paper)"}
-                  activeProps={{
-                    className: "text-yellow-400 hover:text-yellow-300",
-                  }}
-                >
-                  {item.label}
-                </LocalizedLink>
+                  render={
+                    <LocalizedLink
+                      id={`navbar-link-${item.label}`}
+                      to={item.to}
+                      className={"text-(--paper)"}
+                      activeProps={{
+                        className: "text-yellow-400 hover:text-yellow-300",
+                      }}
+                    >
+                      {item.label}
+                    </LocalizedLink>
+                  }
+                ></Button>
               ))}
             </div>
           </div>
@@ -81,7 +82,6 @@ export function Header() {
                   <Button
                     variant="outline"
                     size="icon-sm"
-                    className={"bg-yellow-400/10 border-amber-400/50"}
                   />
                 }
               >
@@ -106,64 +106,86 @@ export function Header() {
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
-            {
-              authInfo ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger
-                    render={
-                      <Button
-                        variant="outline"
-                        size="icon-sm"
-                        className={"bg-yellow-400/10 border-amber-400/50"}
-                      />
-                    }
-                  >
-                    <img src="https://placehold.co/36?text=N" alt="Avatar" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className={"flex flex-col px-2"}>
-                    {authMenuItems.map((item) => {
-                      return (
-                        <DropdownMenuItem key={item.label} className={"p-0"} variant={item.label === content.logout ? "destructive" : "default"}>
+            {authInfo ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  render={
+                    <Button
+                      variant="outline"
+                      size="icon-sm"
+                    />
+                  }
+                >
+                  <img src="https://placehold.co/36?text=N" alt="Avatar" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className={"flex flex-col px-2"}>
+                  {authMenuItems.map((item) => {
+                    return (
+                      <DropdownMenuItem
+                        key={item.label}
+                        className={"p-0"}
+                        variant={
+                          item.label === content.logout
+                            ? "destructive"
+                            : "default"
+                        }
+                        render={
                           <LocalizedLink
                             id={`navbar-dropdown-${item.label}`}
                             className="w-full h-full uppercase px-2 py-3 font-semibold"
-                            aria-current={item.label === locale ? "page" : undefined}
+                            aria-current={
+                              item.label === locale ? "page" : undefined
+                            }
                             onClick={() => setLocale(item.label)}
-                            params={{ locale: getPrefix(item.label).localePrefix }}
+                            params={{
+                              locale: getPrefix(item.label).localePrefix,
+                            }}
                             to={item.to as To}
                           >
                             {item.label}
                           </LocalizedLink>
-                        </DropdownMenuItem>
-                      )
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <LocalizedLink
-                  to="/auth/sign-in"
-                  className={"button-icon-link w-9 h-9"}
-                >
-                  <LogIn className="stroke-yellow-400" />
-                </LocalizedLink>
-              )
-            }
+                        }
+                      ></DropdownMenuItem>
+                    )
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button
+                size={"icon-sm"}
+                variant={"outline"}
+                render={
+                  <LocalizedLink
+                    to="/auth/sign-in"
+                  >
+                    <LogIn className="stroke-yellow-400" />
+                  </LocalizedLink>
+                }
+              ></Button>
+            )}
           </div>
         </nav>
       </header>
       <div className="md:hidden fixed bottom-5 w-full flex justify-center">
         <div className="flex items-center justify-between w-fit bg-black/70 backdrop-blur-sm px-2 py-1 border border-amber-400/20 shadow shadow-amber-400/10">
           {menuItems.map((item) => (
-            <LocalizedLink
+            <Button
+              className={"px-2"}
+              variant={"ghost"}
               key={item.label}
-              to={item.to}
-              className={"navbar-link text-(--paper)"}
-              activeProps={{
-                className: "text-yellow-400 hover:text-yellow-300",
-              }}
-            >
-              {item.label}
-            </LocalizedLink>
+              render={
+                <LocalizedLink
+                  id={`navbar-link-${item.label}`}
+                  to={item.to}
+                  className={"text-(--paper)"}
+                  activeProps={{
+                    className: "text-yellow-400 hover:text-yellow-300",
+                  }}
+                >
+                  {item.label}
+                </LocalizedLink>
+              }
+            ></Button>
           ))}
         </div>
       </div>
