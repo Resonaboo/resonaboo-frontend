@@ -38,7 +38,6 @@ const loginSchema = z.object({
     .string()
     .min(6, "Password must be at least 6 characters long.")
     .max(16, "Password must be at most 16 characters long."),
-  rememberMe: z.boolean(),
 })
 
 function RouteComponent() {
@@ -50,20 +49,19 @@ function RouteComponent() {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
     validators: {
       onChange: loginSchema,
     },
     onSubmit(props) {
       api
-        .POST("/auth/login", {
+        .POST("/api/auth/sign-in", {
           body: props.value,
         })
         .then((res) => {
           if (res.response.status !== 200 && res.error) {
             const error = res.error
-            toast.error(`${error.code}: ${error.error}`, {
+            toast.error(`${res.response.status}: ${error.error}`, {
               duration: 3000,
               position: "bottom-center",
               className: "bg-red-400",
@@ -183,40 +181,6 @@ function RouteComponent() {
                           placeholder="********"
                           autoComplete="off"
                         />
-                        {isInvalid && (
-                          <FieldError errors={field.state.meta.errors} />
-                        )}
-                      </Field>
-                    )
-                  }}
-                />
-                <form.Field
-                  name="rememberMe"
-                  children={(field) => {
-                    const isInvalid =
-                      field.state.meta.isTouched && !field.state.meta.isValid
-                    return (
-                      <Field
-                        data-invalid={isInvalid}
-                        orientation="horizontal"
-                        className="flex items-center gap-2"
-                      >
-                        <Checkbox
-                          id={field.name}
-                          name={field.name}
-                          checked={field.state.value}
-                          onBlur={field.handleBlur}
-                          onCheckedChange={(checked) =>
-                            field.handleChange(!!checked)
-                          }
-                          aria-invalid={isInvalid}
-                        />
-                        <FieldLabel
-                          htmlFor={field.name}
-                          className="cursor-pointer select-none font-bold"
-                        >
-                          {content.remember_me}
-                        </FieldLabel>
                         {isInvalid && (
                           <FieldError errors={field.state.meta.errors} />
                         )}

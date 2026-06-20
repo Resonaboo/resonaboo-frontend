@@ -77,7 +77,7 @@ function RouteComponent() {
         return
       }
       api
-        .POST("/auth/register", {
+        .POST("/api/auth/sign-up", {
           body: {
             username: props.value.username,
             email: props.value.email,
@@ -87,7 +87,7 @@ function RouteComponent() {
         .then((res) => {
           if (res.response.status !== 201 && res.error) {
             const error = res.error
-            toast.error(`${error.code}: ${error.error}`, {
+            toast.error(`${res.response.status}: ${error.error}`, {
               duration: 3000,
               position: "bottom-center",
               className: "bg-red-400",

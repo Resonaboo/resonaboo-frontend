@@ -16,6 +16,7 @@ import { Route as Char123LocaleChar125PublicHomeRouteImport } from './routes/{-$
 import { Route as Char123LocaleChar125PublicAuthRouteRouteImport } from './routes/{-$locale}/_public/auth/route'
 import { Route as Char123LocaleChar125PrivateDashboardIndexRouteImport } from './routes/{-$locale}/_private/dashboard/index'
 import { Route as Char123LocaleChar125PublicAuthSignUpRouteImport } from './routes/{-$locale}/_public/auth/sign-up'
+import { Route as Char123LocaleChar125PublicAuthSignOutRouteImport } from './routes/{-$locale}/_public/auth/sign-out'
 import { Route as Char123LocaleChar125PublicAuthSignInRouteImport } from './routes/{-$locale}/_public/auth/sign-in'
 
 const Char123LocaleChar125RouteRoute =
@@ -59,6 +60,12 @@ const Char123LocaleChar125PublicAuthSignUpRoute =
     path: '/sign-up',
     getParentRoute: () => Char123LocaleChar125PublicAuthRouteRoute,
   } as any)
+const Char123LocaleChar125PublicAuthSignOutRoute =
+  Char123LocaleChar125PublicAuthSignOutRouteImport.update({
+    id: '/sign-out',
+    path: '/sign-out',
+    getParentRoute: () => Char123LocaleChar125PublicAuthRouteRoute,
+  } as any)
 const Char123LocaleChar125PublicAuthSignInRoute =
   Char123LocaleChar125PublicAuthSignInRouteImport.update({
     id: '/sign-in',
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
+  '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
@@ -83,6 +91,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
+  '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/dashboard': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
@@ -94,6 +103,7 @@ export interface FileRoutesById {
   '/{-$locale}/_public/home': typeof Char123LocaleChar125PublicHomeRoute
   '/{-$locale}/_public/plans': typeof Char123LocaleChar125PublicPlansRoute
   '/{-$locale}/_public/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
+  '/{-$locale}/_public/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/_public/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/_private/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
 }
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/home'
     | '/{-$locale}/plans'
     | '/{-$locale}/auth/sign-in'
+    | '/{-$locale}/auth/sign-out'
     | '/{-$locale}/auth/sign-up'
     | '/{-$locale}/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/home'
     | '/{-$locale}/plans'
     | '/{-$locale}/auth/sign-in'
+    | '/{-$locale}/auth/sign-out'
     | '/{-$locale}/auth/sign-up'
     | '/{-$locale}/dashboard'
   id:
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_public/home'
     | '/{-$locale}/_public/plans'
     | '/{-$locale}/_public/auth/sign-in'
+    | '/{-$locale}/_public/auth/sign-out'
     | '/{-$locale}/_public/auth/sign-up'
     | '/{-$locale}/_private/dashboard/'
   fileRoutesById: FileRoutesById
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125PublicAuthSignUpRouteImport
       parentRoute: typeof Char123LocaleChar125PublicAuthRouteRoute
     }
+    '/{-$locale}/_public/auth/sign-out': {
+      id: '/{-$locale}/_public/auth/sign-out'
+      path: '/sign-out'
+      fullPath: '/{-$locale}/auth/sign-out'
+      preLoaderRoute: typeof Char123LocaleChar125PublicAuthSignOutRouteImport
+      parentRoute: typeof Char123LocaleChar125PublicAuthRouteRoute
+    }
     '/{-$locale}/_public/auth/sign-in': {
       id: '/{-$locale}/_public/auth/sign-in'
       path: '/sign-in'
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 interface Char123LocaleChar125PublicAuthRouteRouteChildren {
   Char123LocaleChar125PublicAuthSignInRoute: typeof Char123LocaleChar125PublicAuthSignInRoute
+  Char123LocaleChar125PublicAuthSignOutRoute: typeof Char123LocaleChar125PublicAuthSignOutRoute
   Char123LocaleChar125PublicAuthSignUpRoute: typeof Char123LocaleChar125PublicAuthSignUpRoute
 }
 
@@ -204,6 +225,8 @@ const Char123LocaleChar125PublicAuthRouteRouteChildren: Char123LocaleChar125Publ
   {
     Char123LocaleChar125PublicAuthSignInRoute:
       Char123LocaleChar125PublicAuthSignInRoute,
+    Char123LocaleChar125PublicAuthSignOutRoute:
+      Char123LocaleChar125PublicAuthSignOutRoute,
     Char123LocaleChar125PublicAuthSignUpRoute:
       Char123LocaleChar125PublicAuthSignUpRoute,
   }

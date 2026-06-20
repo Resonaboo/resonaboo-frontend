@@ -4,61 +4,7 @@
  */
 
 export interface paths {
-    "/auth/{*}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    "*": string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    "*": string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/auth/login": {
+    "/api/auth/sign-in": {
         parameters: {
             query?: never;
             header?: never;
@@ -68,8 +14,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Login
-         * @description Login
+         * Sign-in
+         * @description Login route
          */
         post: {
             parameters: {
@@ -84,7 +30,6 @@ export interface paths {
                         /** Format: email */
                         email: string;
                         password: string;
-                        rememberMe: boolean;
                     };
                 };
             };
@@ -97,7 +42,17 @@ export interface paths {
                     content: {
                         "application/json": {
                             status: string;
-                            username: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
                         };
                     };
                 };
@@ -108,9 +63,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            status: string;
                             error: string;
-                            code: string;
                         };
                     };
                 };
@@ -122,7 +75,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/auth/register": {
+    "/api/auth/sign-up": {
         parameters: {
             query?: never;
             header?: never;
@@ -132,7 +85,7 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Register
+         * sign-up
          * @description Register a new user
          */
         post: {
@@ -163,15 +116,24 @@ export interface paths {
                     };
                 };
                 /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
                 500: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
                         "application/json": {
-                            status: string;
                             error: string;
-                            code: string;
                         };
                     };
                 };
@@ -183,7 +145,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/auth/logout": {
+    "/api/auth/sign-out": {
         parameters: {
             query?: never;
             header?: never;
@@ -193,7 +155,7 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Logout
+         * sign-out
          * @description Logout from the API.
          */
         post: {
@@ -235,7 +197,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/": {
+    "/api": {
         parameters: {
             query?: never;
             header?: never;
@@ -266,74 +228,6 @@ export interface paths {
                             status: "success";
                             /** @enum {string} */
                             data: "Hello, world!";
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/stream": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Streaming video
-         * @description Stream video.
-         */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @enum {string} */
-                            status: "success";
-                            /** @enum {string} */
-                            data: "Hello, world!";
-                        };
-                    };
-                };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @enum {string} */
-                            status: "Unauthorized";
-                        };
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            status: string;
-                            message: string;
                         };
                     };
                 };

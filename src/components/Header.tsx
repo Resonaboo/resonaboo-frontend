@@ -26,7 +26,7 @@ export function Header() {
 
   const content = useIntlayer("header")
 
-  const authInfo = Cookies.get("auth_info")
+  const authInfo = Cookies.get("user-info")
 
   const menuItems: MenuItem[] = [
     { label: content.home, to: "/home" },
