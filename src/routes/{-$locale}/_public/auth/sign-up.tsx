@@ -24,7 +24,7 @@ import { LocalizedLink } from "#/components/localized-links"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-up")({
   beforeLoad: async ({ context }) => {
-    if (context.authInfo) {
+    if (context.userInfo) {
       throw redirect({ to: "/{-$locale}/home" })
     }
   },
@@ -87,7 +87,7 @@ function RouteComponent() {
         .then((res) => {
           if (res.response.status !== 201 && res.error) {
             const error = res.error
-            toast.error(`${res.response.status}: ${error.error}`, {
+            toast.error(`${res.response.status}: ${error.message}`, {
               duration: 3000,
               position: "bottom-center",
               className: "bg-red-400",

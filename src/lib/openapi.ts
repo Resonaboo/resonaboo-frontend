@@ -52,7 +52,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            error: string;
+                            message: string;
                         };
                     };
                 };
@@ -64,6 +64,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             error: string;
+                            message: string;
                         };
                     };
                 };
@@ -122,7 +123,7 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            error: string;
+                            message: string;
                         };
                     };
                 };
@@ -134,6 +135,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             error: string;
+                            message: string;
                         };
                     };
                 };
@@ -174,19 +176,6 @@ export interface paths {
                     };
                     content: {
                         "application/json": Record<string, never>;
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            status: string;
-                            error: string;
-                            code: string;
-                        };
                     };
                 };
             };

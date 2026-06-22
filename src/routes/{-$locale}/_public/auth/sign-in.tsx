@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "#/components/ui/card"
-import { Checkbox } from "#/components/ui/checkbox"
 import {
   Field,
   FieldError,
@@ -25,7 +24,7 @@ import { useIntlayer } from "react-intlayer"
 
 export const Route = createFileRoute("/{-$locale}/_public/auth/sign-in")({
   beforeLoad: async ({ context }) => {
-    if (context.authInfo) {
+    if (context.userInfo) {
       throw redirect({ to: "/{-$locale}/home" })
     }
   },
@@ -61,7 +60,7 @@ function RouteComponent() {
         .then((res) => {
           if (res.response.status !== 200 && res.error) {
             const error = res.error
-            toast.error(`${res.response.status}: ${error.error}`, {
+            toast.error(`${res.response.status}: ${error.message}`, {
               duration: 3000,
               position: "bottom-center",
               className: "bg-red-400",

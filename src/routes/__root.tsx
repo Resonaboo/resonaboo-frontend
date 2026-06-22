@@ -16,13 +16,13 @@ import { Toaster } from '#/components/ui/sonner'
 
 interface MyRouterContext {
   queryClient: QueryClient,
-  authInfo: string | undefined
+  userInfo: string | undefined
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: () => {
     return {
-      authInfo: Cookies.get('auth_info')
+      userInfo: Cookies.get("user-info")
     };
   },
   head: () => ({

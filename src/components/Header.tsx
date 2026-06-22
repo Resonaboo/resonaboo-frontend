@@ -136,7 +136,6 @@ export function Header() {
                             aria-current={
                               item.label === locale ? "page" : undefined
                             }
-                            onClick={() => setLocale(item.label)}
                             params={{
                               locale: getPrefix(item.label).localePrefix,
                             }}

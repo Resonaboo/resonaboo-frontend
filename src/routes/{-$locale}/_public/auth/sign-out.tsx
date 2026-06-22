@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router"
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router"
 import { Loader2 } from "lucide-react"
 import { useIntlayer } from "react-intlayer"
 import Cookies from "js-cookie"
@@ -11,14 +11,13 @@ export const Route = createFileRoute("/{-$locale}/_public/auth/sign-out")({
 
 function RouteComponent() {
   const api = useApi()
-  
+
   const content = useIntlayer("sign-out")
 
   const navigate = useNavigate()
   useState(() => {
     Cookies.remove("user-info")
-    api.POST("/api/auth/sign-out")
-    .finally(() => {
+    api.POST("/api/auth/sign-out").finally(() => {
       navigate({ to: "/{-$locale}/home" })
     })
   })
