@@ -1,6 +1,6 @@
 import { Languages, LogIn } from "lucide-react"
 import { Button } from "./ui/button"
-import { useLocation } from "@tanstack/react-router"
+import { useLocation, useRouteContext } from "@tanstack/react-router"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,7 +26,7 @@ export function Header() {
 
   const content = useIntlayer("header")
 
-  const authInfo = Cookies.get("user-info")
+  const { userInfo } = useRouteContext({ from: "__root__" })
 
   const menuItems: MenuItem[] = [
     { label: content.home, to: "/home" },
@@ -35,8 +35,8 @@ export function Header() {
   ] as const
 
   const authMenuItems: MenuItem[] = [
+    { label: content.profile, to: "/profile" },
     { label: content.dashboard, to: "/dashboard" },
-    { label: content.settings, to: "/settings" },
     { label: content.logout, to: "/auth/sign-out" },
   ] as const
 
@@ -58,6 +58,7 @@ export function Header() {
                   className={"px-2"}
                   variant={"ghost"}
                   key={item.label}
+                  nativeButton={false}
                   render={
                     <LocalizedLink
                       id={`navbar-link-${item.label}`}
@@ -106,7 +107,7 @@ export function Header() {
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
-            {authInfo ? (
+            {userInfo ? (
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
@@ -116,7 +117,7 @@ export function Header() {
                     />
                   }
                 >
-                  <img src="https://placehold.co/36?text=N" alt="Avatar" />
+                  <img src={`https://placehold.co/36?text=${userInfo.username[0].toUpperCase()}`} alt="Avatar" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className={"flex flex-col px-2"}>
                   {authMenuItems.map((item) => {
@@ -153,6 +154,7 @@ export function Header() {
               <Button
                 size={"icon-sm"}
                 variant={"outline"}
+                nativeButton={false}
                 render={
                   <LocalizedLink
                     to="/auth/sign-in"
@@ -172,6 +174,7 @@ export function Header() {
               className={"px-2"}
               variant={"ghost"}
               key={item.label}
+              nativeButton={false}
               render={
                 <LocalizedLink
                   id={`navbar-link-${item.label}`}

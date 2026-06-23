@@ -46,6 +46,7 @@ export function Hero() {
 
         <div className="w-full mt-10 flex items-center max-[430px]:justify-center gap-x-5">
           <Button
+            nativeButton={false}
             render={
               <a
                 href="#features"
@@ -55,6 +56,7 @@ export function Hero() {
             }
           ></Button>
           <Button
+            nativeButton={false}
             render={
               <a
                 href="#contacts"

@@ -186,7 +186,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api": {
+    "/api/profile": {
         parameters: {
             query?: never;
             header?: never;
@@ -194,8 +194,8 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Hello, world!
-         * @description Just a hello world API.
+         * Avaliable plans
+         * @description Get all avaliable plans info
          */
         get: {
             parameters: {
@@ -213,10 +213,109 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** @enum {string} */
-                            status: "success";
-                            /** @enum {string} */
-                            data: "Hello, world!";
+                            subscription: {
+                                name: string;
+                                /** Format: date-time */
+                                expireAt: string;
+                            } | null;
+                            sessions: {
+                                id: string;
+                                ip: string;
+                                os: string;
+                                browser: string;
+                            }[];
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Avaliable plans
+         * @description Get all avaliable plans info
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            avaliablePlans: {
+                                id: number;
+                                name: string;
+                                description: string | null;
+                                price: number;
+                            }[];
+                        };
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message: string;
+                        };
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: string;
+                            message: string;
                         };
                     };
                 };

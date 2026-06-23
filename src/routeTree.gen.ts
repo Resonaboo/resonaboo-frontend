@@ -15,6 +15,7 @@ import { Route as Char123LocaleChar125PrivateRouteRouteImport } from './routes/{
 import { Route as Char123LocaleChar125PublicPlansRouteImport } from './routes/{-$locale}/_public/plans'
 import { Route as Char123LocaleChar125PublicHomeRouteImport } from './routes/{-$locale}/_public/home'
 import { Route as Char123LocaleChar125PublicAuthRouteRouteImport } from './routes/{-$locale}/_public/auth/route'
+import { Route as Char123LocaleChar125PrivateProfileIndexRouteImport } from './routes/{-$locale}/_private/profile/index'
 import { Route as Char123LocaleChar125PrivateDashboardIndexRouteImport } from './routes/{-$locale}/_private/dashboard/index'
 import { Route as Char123LocaleChar125PublicAuthSignUpRouteImport } from './routes/{-$locale}/_public/auth/sign-up'
 import { Route as Char123LocaleChar125PublicAuthSignOutRouteImport } from './routes/{-$locale}/_public/auth/sign-out'
@@ -54,6 +55,12 @@ const Char123LocaleChar125PublicAuthRouteRoute =
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
+const Char123LocaleChar125PrivateProfileIndexRoute =
+  Char123LocaleChar125PrivateProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => Char123LocaleChar125PrivateRouteRoute,
+  } as any)
 const Char123LocaleChar125PrivateDashboardIndexRoute =
   Char123LocaleChar125PrivateDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
+  '/{-$locale}/profile/': typeof Char123LocaleChar125PrivateProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
@@ -100,6 +108,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/dashboard': typeof Char123LocaleChar125PrivateDashboardIndexRoute
+  '/{-$locale}/profile': typeof Char123LocaleChar125PrivateProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,6 +122,7 @@ export interface FileRoutesById {
   '/{-$locale}/_public/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
   '/{-$locale}/_public/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
   '/{-$locale}/_private/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
+  '/{-$locale}/_private/profile/': typeof Char123LocaleChar125PrivateProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/sign-out'
     | '/{-$locale}/auth/sign-up'
     | '/{-$locale}/dashboard/'
+    | '/{-$locale}/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/auth/sign-out'
     | '/{-$locale}/auth/sign-up'
     | '/{-$locale}/dashboard'
+    | '/{-$locale}/profile'
   id:
     | '__root__'
     | '/{-$locale}'
@@ -149,6 +161,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/_public/auth/sign-out'
     | '/{-$locale}/_public/auth/sign-up'
     | '/{-$locale}/_private/dashboard/'
+    | '/{-$locale}/_private/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125PublicAuthRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
+    '/{-$locale}/_private/profile/': {
+      id: '/{-$locale}/_private/profile/'
+      path: '/profile'
+      fullPath: '/{-$locale}/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125PrivateProfileIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125PrivateRouteRoute
+    }
     '/{-$locale}/_private/dashboard/': {
       id: '/{-$locale}/_private/dashboard/'
       path: '/dashboard'
@@ -232,12 +252,15 @@ declare module '@tanstack/react-router' {
 
 interface Char123LocaleChar125PrivateRouteRouteChildren {
   Char123LocaleChar125PrivateDashboardIndexRoute: typeof Char123LocaleChar125PrivateDashboardIndexRoute
+  Char123LocaleChar125PrivateProfileIndexRoute: typeof Char123LocaleChar125PrivateProfileIndexRoute
 }
 
 const Char123LocaleChar125PrivateRouteRouteChildren: Char123LocaleChar125PrivateRouteRouteChildren =
   {
     Char123LocaleChar125PrivateDashboardIndexRoute:
       Char123LocaleChar125PrivateDashboardIndexRoute,
+    Char123LocaleChar125PrivateProfileIndexRoute:
+      Char123LocaleChar125PrivateProfileIndexRoute,
   }
 
 const Char123LocaleChar125PrivateRouteRouteWithChildren =

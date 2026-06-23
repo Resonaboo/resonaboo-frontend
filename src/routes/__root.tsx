@@ -2,45 +2,64 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import Cookies from 'js-cookie'
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+} from "@tanstack/react-router"
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+import { TanStackDevtools } from "@tanstack/react-devtools"
+import Cookies from "js-cookie"
+import TanStackQueryDevtools from "../integrations/tanstack-query/devtools"
 
-import appCss from '../styles.css?url'
+import appCss from "../styles.css?url"
 
-import type { QueryClient } from '@tanstack/react-query'
-import { Toaster } from '#/components/ui/sonner'
+import type { QueryClient } from "@tanstack/react-query"
+import { Toaster } from "#/components/ui/sonner"
+import z from "zod"
+import { getUserInfoCookie } from "#/server/api/getCookies"
 
+const userInfoSchema = z.object({
+  username: z.string(),
+  email: z.string(),
+})
 
 interface MyRouterContext {
-  queryClient: QueryClient,
-  userInfo: string | undefined
+  queryClient: QueryClient
+  userInfo: z.infer<typeof userInfoSchema> | undefined
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  beforeLoad: () => {
+  beforeLoad: async () => {
+    let cookie: string | undefined
+
+    if (typeof document === "undefined") {
+      cookie = await getUserInfoCookie()
+    } else {
+      cookie = Cookies.get("user-info")
+    }
+    
+    if (!cookie) return
+
+    const parse = userInfoSchema.safeParse(JSON.parse(cookie))
+    if (parse.error) return
+
     return {
-      userInfo: Cookies.get("user-info")
-    };
+      userInfo: parse.data,
+    }
   },
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charSet: "utf-8",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        title: 'Resonaboo',
+        title: "Resonaboo",
       },
     ],
     links: [
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href: appCss,
       },
     ],
@@ -59,11 +78,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         {children}
         <TanStackDevtools
           config={{
-            position: 'bottom-right',
+            position: "bottom-right",
           }}
           plugins={[
             {
-              name: 'Tanstack Router',
+              name: "Tanstack Router",
               render: <TanStackRouterDevtoolsPanel />,
             },
             TanStackQueryDevtools,

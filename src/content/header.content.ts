@@ -19,9 +19,9 @@ const headerContent = {
       en: "Dashboard",
       "pt-BR": "Dashboard",
     }),
-    settings: t({
-      en: "Settings",
-      "pt-BR": "Configurações",
+    profile: t({
+      en: "Profile",
+      "pt-BR": "Perfil",
     }),
     logout: t({
       en: "Logout",

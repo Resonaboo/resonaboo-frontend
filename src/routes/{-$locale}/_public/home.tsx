@@ -83,6 +83,7 @@ function Home() {
                   <Button
                     className={"px-0 py-0"}
                     variant={"link"}
+                    nativeButton={false}
                     render={
                       <a
                         href="mailto:[EMAIL_ADDRESS]"
@@ -103,6 +104,7 @@ function Home() {
                   <Button
                     className={"px-0 py-0"}
                     variant={"link"}
+                    nativeButton={false}
                     render={
                       <a
                         href="https://github.com/resonaboo"
@@ -123,6 +125,7 @@ function Home() {
                   <Button
                     className={"px-0 py-0"}
                     variant={"link"}
+                    nativeButton={false}
                     render={
                       <a
                         href="https://github.com/resonaboo"
@@ -143,6 +146,7 @@ function Home() {
                   <Button
                     className={"px-0 py-0"}
                     variant={"link"}
+                    nativeButton={false}
                     render={
                       <a
                         href="https://github.com/resonaboo"
@@ -162,6 +166,7 @@ function Home() {
             <Button
               className={"px-0 py-0"}
               variant={"link"}
+              nativeButton={false}
               render={
                 <a
                   href="https://github.com/resonaboo"
@@ -175,6 +180,7 @@ function Home() {
             <Button
               className={"px-0 py-0"}
               variant={"link"}
+              nativeButton={false}
               render={
                 <a
                   href="https://github.com/resonaboo"

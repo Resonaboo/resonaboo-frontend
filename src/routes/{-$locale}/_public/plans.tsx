@@ -1,51 +1,31 @@
-import { PlanCard } from "#/components/PlanCard"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
+import { PlanCard } from "#/components/PlanCard"
+import { useApi } from "#/lib"
+import { Loader2 } from "lucide-react"
 
 export const Route = createFileRoute("/{-$locale}/_public/plans")({
   component: RouteComponent,
 })
 
-type PlansType = {
-  level: string
-  features: string[]
-  price: number
-}
-
 function RouteComponent() {
-  const plans: PlansType[] = [
-    {
-      level: "Carbon",
-      features: [
-        "Unlimited band",
-        "Stream up to 1080p at 60fps",
-        "Support to stream platform only",
-        "1 Entrypoint and 2 Endpoits",
-      ],
-      price: 10,
+  const api = useApi()
+
+  const {
+    data: plans,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["plans-query"],
+    queryFn: async () => {
+      const res = await api.GET("/api/plans")
+      if (res.response.status !== 200 && res.error) {
+        throw new Error(res.error.message)
+      }
+      
+      return res.data?.avaliablePlans ?? []
     },
-    {
-      level: "Silver",
-      features: [
-        "Unlimited band",
-        "Stream up to 2K at 60fps",
-        "Support to stream platform",
-        "Support to custom endpoint",
-        "2 Entrypoint and 4 Endpoints",
-      ],
-      price: 15,
-    },
-    {
-      level: "Gold",
-      features: [
-        "Unlimited band",
-        "Stream up to 4K at 60fps",
-        "Support to stream platform",
-        "Support to custom endpoint",
-        "4 Entrypoint and 8 Endpoints",
-      ],
-      price: 20,
-    },
-  ]
+  })
 
   return (
     <>
@@ -60,17 +40,30 @@ function RouteComponent() {
             </h2>
           </div>
 
-          <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {plans.map((p) => (
-              <div className="w-full flex justify-center">
-                <PlanCard
-                  level={p.level}
-                  features={p.features}
-                  price={p.price}
-                />
+          {error ? (
+            <div className="w-full flex items-center justify-center py-12 bg-black/40 border border-red-600/20 shadow-lg shadow-red-500/15">
+              <span className="font-bold text-(--paper)">Error: {error.message}</span>
+            </div>
+          ) : isLoading ? (
+            <div className="w-full flex items-center justify-center py-12">
+              <span className="stroke-(--paper) animate-spin"><Loader2 /></span>
+            </div>
+          ) : (
+            plans && (
+              <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {plans.map((p) => (
+                  <div className="w-full flex justify-center">
+                    <PlanCard
+                      id={p.id}
+                      name={p.name}
+                      description={p.description ?? ""}
+                      price={p.price}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )
+          )}
         </div>
       </section>
     </>
