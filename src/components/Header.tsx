@@ -55,7 +55,7 @@ export function Header() {
             <div className="md:flex hidden items-center ml-5 gap-x-1">
               {menuItems.map((item) => (
                 <Button
-                  className={"px-2"}
+                  className={"px-2 text-sm"}
                   variant={"ghost"}
                   key={item.label}
                   nativeButton={false}
@@ -171,7 +171,7 @@ export function Header() {
         <div className="flex items-center justify-between w-fit bg-black/70 backdrop-blur-sm px-2 py-1 border border-amber-400/20 shadow shadow-amber-400/10">
           {menuItems.map((item) => (
             <Button
-              className={"px-2"}
+              className={"px-2 text-sm"}
               variant={"ghost"}
               key={item.label}
               nativeButton={false}

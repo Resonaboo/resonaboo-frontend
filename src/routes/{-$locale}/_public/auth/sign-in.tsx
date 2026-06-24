@@ -164,6 +164,7 @@ function RouteComponent() {
                             type="button"
                             variant="link"
                             className="px-0 h-auto font-normal text-[8px] min-[350px]:text-[10px]"
+                            nativeButton={false}
                             render={<LocalizedLink to={"/auth/forgot-password"} />}
                           >
                             {content.forgot_password}

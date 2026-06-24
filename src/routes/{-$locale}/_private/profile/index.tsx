@@ -4,6 +4,12 @@ import { createFileRoute } from "@tanstack/react-router"
 import { Button } from "#/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "#/components/ui/card"
 import { Loader2 } from "lucide-react"
+import { LocalizedLink } from "#/components/localized-links"
+import { ProfileCard } from "#/components/ProfileCard"
+import { SessionCard } from "#/components/SessionCard"
+import { useIntlayer } from "react-intlayer"
+import { useCallback } from "react"
+import { toast } from "sonner"
 
 export const Route = createFileRoute("/{-$locale}/_private/profile/")({
   component: RouteComponent,
@@ -14,7 +20,7 @@ function RouteComponent() {
 
   const api = useApi()
 
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["profile-query"],
     queryFn: async () => {
       const { response, data, error } = await api.GET("/api/profile")
@@ -27,111 +33,112 @@ function RouteComponent() {
     },
   })
 
+  const removeCb = useCallback((id: string) => {
+    api
+      .DELETE("/api/auth/delete-session", {
+        body: {
+          sessionIds: [id],
+        },
+      })
+      .then((res) => {
+        if (res.response.status !== 204 && res.error) {
+          toast.error(`${res.response.status}: ${res.error.message}`, {
+            duration: 3000,
+            position: "bottom-center",
+            className: "bg-red-400",
+            style: {
+              color: "white",
+              backgroundColor: "red",
+              borderColor: "red",
+            },
+          })
+
+          return
+        }
+
+        refetch()
+      })
+      .catch((error) => {
+        toast.error(`${error.message}`, {
+          duration: 3000,
+          position: "bottom-center",
+          className: "bg-red-400",
+          style: {
+            color: "white",
+            backgroundColor: "red",
+            borderColor: "red",
+          },
+        })
+      })
+  }, [])
+
+  const content = useIntlayer("profile")
+
   return (
-    <div className="container mx-auto py-10 space-y-10 px-4">
-      {/* Section 1: Informações do Usuário */}
-      <section className="w-full flex flex-col gap-4">
-        <h2 className="text-2xl font-bold text-(--paper)">Minha Conta</h2>
-        <Card className="bg-black/40 border-white/10 shadow-md">
-          <CardContent className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 gap-6">
-            <div className="flex md:flex-row flex-col items-start gap-6">
-              <img
-                src={`https://placehold.co/128?text=${userInfo?.username?.[0]?.toUpperCase() || "U"}`}
-                alt="Avatar"
-                className="w-20 h-20 border-2 border-white/10"
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl font-bold text-white">
-                  {userInfo?.username}
-                </span>
-                <span className="text-sm text-gray-400">{userInfo?.email}</span>
+    <>
+      <section className="w-full min-h-[calc(100vh-166px)] flex flex-col items-center py-10 gap-y-10">
+        <div className="container flex flex-col">
+          <ProfileCard
+            email={userInfo?.email ?? "Unknow"}
+            username={userInfo?.username ?? "Unknow"}
+            isLoading={isLoading}
+            planTier={data?.subscription?.name}
+          />
+        </div>
 
-                {isLoading ? (
-                  <span className="text-sm text-gray-400 mt-2 flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 animate-spin" /> Carregando
-                    plano...
-                  </span>
-                ) : data?.subscription ? (
-                  <div className="mt-2 text-sm flex items-center gap-2">
-                    <span className="font-semibold text-gray-300">
-                      Plano Atual:
-                    </span>
-                    <span className="text-amber-400 font-bold bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
-                      {data.subscription.name}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="mt-2 text-sm text-red-400">
-                    Nenhum plano ativo
-                  </div>
-                )}
-              </div>
+        <div className="container flex flex-col gap-y-5">
+          <h2 className="font-bold text-lg text-(--paper)">Current session</h2>
+          {isLoading ? (
+            <div className="w-full flex items-center justify-center min-h-[122.75px]">
+              <span className="text-lg text-(--paper) mt-2 flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin stroke-white" />
+                {content.loading_current_session}
+              </span>
             </div>
-
-            <div className="flex flex-col gap-2 w-full md:w-auto">
-              <Button
-                variant="outline"
-                className="border-amber-400 text-amber-400 hover:text-amber-300"
-              >
-                Alterar Plano
-              </Button>
+          ) : data?.currentSession ? (
+            <SessionCard
+              id={data.currentSession.id}
+              ip={data.currentSession.ip}
+              os={data.currentSession.os}
+              browser={data.currentSession.browser}
+              removeCb={removeCb}
+            ></SessionCard>
+          ) : (
+            <div className="text-gray-400 col-span-full py-8 text-center bg-black/20 rounded-lg border border-white/5">
+              {content.no_current_session}
             </div>
-          </CardContent>
-        </Card>
-      </section>
+          )}
+        </div>
 
-      {/* Section 2: Sessões Conectadas */}
-      <section className="w-full flex flex-col gap-4">
-        <h2 className="text-2xl font-bold text-(--paper)">
-          Sessões Conectadas
-        </h2>
-        {isLoading ? (
-          <div className="flex items-center justify-center py-10">
-            <Loader2 className="w-8 h-8 animate-spin stroke-amber-400" />
-          </div>
-        ) : error ? (
-          <div className="bg-red-500/10 border border-red-500/20 p-4 text-red-400">
-            Erro ao carregar sessões: {error.message}
-          </div>
-        ) : (
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {data?.sessions?.map((session) => (
-              <Card
-                key={session.id}
-                className="bg-black/40 border-white/10 shadow-md"
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-200">
-                    Sessão
-                    <span className="text-xs text-gray-500 block font-normal mt-1 break-all">
-                      ID: {session.id}
-                    </span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-gray-400 space-y-2">
-                  <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span className="font-semibold text-gray-300">IP</span>
-                    <span>{session.ip}</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span className="font-semibold text-gray-300">OS</span>
-                    <span>{session.os}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-gray-300">Browser</span>
-                    <span>{session.browser}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-            {(!data?.sessions || data.sessions.length === 0) && (
-              <div className="text-gray-400 col-span-full py-8 text-center bg-black/20 rounded-lg border border-white/5">
-                Nenhuma sessão conectada encontrada.
-              </div>
-            )}
-          </div>
-        )}
+        <div className="container flex flex-col gap-y-5">
+          <h2 className="font-bold text-lg text-(--paper)">
+            {content.devices_connected}
+          </h2>
+          {isLoading ? (
+            <div className="w-full flex items-center justify-center min-h-[122.75px]">
+              <span className="text-lg text-(--paper) mt-2 flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin stroke-white" />
+                {content.loading_current_session}
+              </span>
+            </div>
+          ) : data?.sessions && data.sessions.length > 0 ? (
+            data.sessions.map((s) => (
+              <SessionCard
+                key={s.id}
+                id={s.id}
+                ip={s.ip}
+                os={s.os}
+                browser={s.browser}
+                removeCb={removeCb}
+              ></SessionCard>
+            ))
+          ) : (
+            <div className="text-(--paper) col-span-full py-8 text-center bg-black/20 border border-yellow-600/10">
+              {content.no_extra_devices}
+            </div>
+          )}
+        </div>
       </section>
-    </div>
+    </>
   )
 }
