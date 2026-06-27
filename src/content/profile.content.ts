@@ -15,6 +15,10 @@ const profileContent = {
       en: "Current plan:",
       "pt-BR": "Plano atual:",
     }),
+    current_session: t({
+      en: "Current session",
+      "pt-BR": "Sessão atual",
+    }),
     change_plan: t({
       en: "Change plan",
       "pt-BR": "Trocar de plano",

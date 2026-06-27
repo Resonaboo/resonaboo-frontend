@@ -87,7 +87,7 @@ function RouteComponent() {
         </div>
 
         <div className="container flex flex-col gap-y-5">
-          <h2 className="font-bold text-lg text-(--paper)">Current session</h2>
+          <h2 className="font-bold text-lg text-(--paper)">{content.current_session}</h2>
           {isLoading ? (
             <div className="w-full flex items-center justify-center min-h-[122.75px]">
               <span className="text-lg text-(--paper) mt-2 flex items-center gap-2">
