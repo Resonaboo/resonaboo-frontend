@@ -1,23 +1,22 @@
 {
-  "projectName": "resonaboo",
+  "projectName": "resonaboo-frontend",
   "mode": "file-router",
   "typescript": true,
   "packageManager": "npm",
   "includeExamples": false,
   "tailwind": true,
+  "projectPreset": "default",
   "addOnOptions": {},
-  "envVarValues": {},
   "git": false,
   "install": true,
+  "intent": true,
   "routerOnly": false,
   "version": 1,
   "framework": "react",
   "chosenAddOns": [
     "biome",
-    "db",
-    "form",
+    "tanstack-query",
     "shadcn",
-    "table",
-    "tanstack-query"
+    "table"
   ]
 }

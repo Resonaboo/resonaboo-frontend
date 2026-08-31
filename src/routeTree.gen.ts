@@ -9,322 +9,51 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
-import { Route as Char123LocaleChar125PrivateRouteRouteImport } from './routes/{-$locale}/_private/route'
-import { Route as Char123LocaleChar125PublicPlansRouteImport } from './routes/{-$locale}/_public/plans'
-import { Route as Char123LocaleChar125PublicHomeRouteImport } from './routes/{-$locale}/_public/home'
-import { Route as Char123LocaleChar125PublicAuthRouteRouteImport } from './routes/{-$locale}/_public/auth/route'
-import { Route as Char123LocaleChar125PrivateProfileIndexRouteImport } from './routes/{-$locale}/_private/profile/index'
-import { Route as Char123LocaleChar125PrivateDashboardIndexRouteImport } from './routes/{-$locale}/_private/dashboard/index'
-import { Route as Char123LocaleChar125PublicAuthSignUpRouteImport } from './routes/{-$locale}/_public/auth/sign-up'
-import { Route as Char123LocaleChar125PublicAuthSignOutRouteImport } from './routes/{-$locale}/_public/auth/sign-out'
-import { Route as Char123LocaleChar125PublicAuthSignInRouteImport } from './routes/{-$locale}/_public/auth/sign-in'
+import { Route as IndexRouteImport } from './routes/index'
 
-const Char123LocaleChar125RouteRoute =
-  Char123LocaleChar125RouteRouteImport.update({
-    id: '/{-$locale}',
-    path: '/{-$locale}',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
-  id: '/404',
-  path: '/404',
-  getParentRoute: () => Char123LocaleChar125RouteRoute,
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const Char123LocaleChar125PrivateRouteRoute =
-  Char123LocaleChar125PrivateRouteRouteImport.update({
-    id: '/_private',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125PublicPlansRoute =
-  Char123LocaleChar125PublicPlansRouteImport.update({
-    id: '/_public/plans',
-    path: '/plans',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125PublicHomeRoute =
-  Char123LocaleChar125PublicHomeRouteImport.update({
-    id: '/_public/home',
-    path: '/home',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125PublicAuthRouteRoute =
-  Char123LocaleChar125PublicAuthRouteRouteImport.update({
-    id: '/_public/auth',
-    path: '/auth',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125PrivateProfileIndexRoute =
-  Char123LocaleChar125PrivateProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
-    getParentRoute: () => Char123LocaleChar125PrivateRouteRoute,
-  } as any)
-const Char123LocaleChar125PrivateDashboardIndexRoute =
-  Char123LocaleChar125PrivateDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
-    getParentRoute: () => Char123LocaleChar125PrivateRouteRoute,
-  } as any)
-const Char123LocaleChar125PublicAuthSignUpRoute =
-  Char123LocaleChar125PublicAuthSignUpRouteImport.update({
-    id: '/sign-up',
-    path: '/sign-up',
-    getParentRoute: () => Char123LocaleChar125PublicAuthRouteRoute,
-  } as any)
-const Char123LocaleChar125PublicAuthSignOutRoute =
-  Char123LocaleChar125PublicAuthSignOutRouteImport.update({
-    id: '/sign-out',
-    path: '/sign-out',
-    getParentRoute: () => Char123LocaleChar125PublicAuthRouteRoute,
-  } as any)
-const Char123LocaleChar125PublicAuthSignInRoute =
-  Char123LocaleChar125PublicAuthSignInRouteImport.update({
-    id: '/sign-in',
-    path: '/sign-in',
-    getParentRoute: () => Char123LocaleChar125PublicAuthRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
-  '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
-  '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
-  '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
-  '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
-  '/{-$locale}/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
-  '/{-$locale}/profile/': typeof Char123LocaleChar125PrivateProfileIndexRoute
+  '/': typeof IndexRoute
 }
 export interface FileRoutesByTo {
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/home': typeof Char123LocaleChar125PublicHomeRoute
-  '/{-$locale}/plans': typeof Char123LocaleChar125PublicPlansRoute
-  '/{-$locale}/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
-  '/{-$locale}/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
-  '/{-$locale}/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
-  '/{-$locale}/dashboard': typeof Char123LocaleChar125PrivateDashboardIndexRoute
-  '/{-$locale}/profile': typeof Char123LocaleChar125PrivateProfileIndexRoute
+  '/': typeof IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
-  '/{-$locale}/_private': typeof Char123LocaleChar125PrivateRouteRouteWithChildren
-  '/{-$locale}/404': typeof Char123LocaleChar125404Route
-  '/{-$locale}/_public/auth': typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  '/{-$locale}/_public/home': typeof Char123LocaleChar125PublicHomeRoute
-  '/{-$locale}/_public/plans': typeof Char123LocaleChar125PublicPlansRoute
-  '/{-$locale}/_public/auth/sign-in': typeof Char123LocaleChar125PublicAuthSignInRoute
-  '/{-$locale}/_public/auth/sign-out': typeof Char123LocaleChar125PublicAuthSignOutRoute
-  '/{-$locale}/_public/auth/sign-up': typeof Char123LocaleChar125PublicAuthSignUpRoute
-  '/{-$locale}/_private/dashboard/': typeof Char123LocaleChar125PrivateDashboardIndexRoute
-  '/{-$locale}/_private/profile/': typeof Char123LocaleChar125PrivateProfileIndexRoute
+  '/': typeof IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/{-$locale}'
-    | '/{-$locale}/404'
-    | '/{-$locale}/auth'
-    | '/{-$locale}/home'
-    | '/{-$locale}/plans'
-    | '/{-$locale}/auth/sign-in'
-    | '/{-$locale}/auth/sign-out'
-    | '/{-$locale}/auth/sign-up'
-    | '/{-$locale}/dashboard/'
-    | '/{-$locale}/profile/'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/{-$locale}'
-    | '/{-$locale}/404'
-    | '/{-$locale}/auth'
-    | '/{-$locale}/home'
-    | '/{-$locale}/plans'
-    | '/{-$locale}/auth/sign-in'
-    | '/{-$locale}/auth/sign-out'
-    | '/{-$locale}/auth/sign-up'
-    | '/{-$locale}/dashboard'
-    | '/{-$locale}/profile'
-  id:
-    | '__root__'
-    | '/{-$locale}'
-    | '/{-$locale}/_private'
-    | '/{-$locale}/404'
-    | '/{-$locale}/_public/auth'
-    | '/{-$locale}/_public/home'
-    | '/{-$locale}/_public/plans'
-    | '/{-$locale}/_public/auth/sign-in'
-    | '/{-$locale}/_public/auth/sign-out'
-    | '/{-$locale}/_public/auth/sign-up'
-    | '/{-$locale}/_private/dashboard/'
-    | '/{-$locale}/_private/profile/'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
+  IndexRoute: typeof IndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/{-$locale}': {
-      id: '/{-$locale}'
-      path: '/{-$locale}'
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/{-$locale}/404': {
-      id: '/{-$locale}/404'
-      path: '/404'
-      fullPath: '/{-$locale}/404'
-      preLoaderRoute: typeof Char123LocaleChar125404RouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_private': {
-      id: '/{-$locale}/_private'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125PrivateRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_public/plans': {
-      id: '/{-$locale}/_public/plans'
-      path: '/plans'
-      fullPath: '/{-$locale}/plans'
-      preLoaderRoute: typeof Char123LocaleChar125PublicPlansRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_public/home': {
-      id: '/{-$locale}/_public/home'
-      path: '/home'
-      fullPath: '/{-$locale}/home'
-      preLoaderRoute: typeof Char123LocaleChar125PublicHomeRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_public/auth': {
-      id: '/{-$locale}/_public/auth'
-      path: '/auth'
-      fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125PublicAuthRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_private/profile/': {
-      id: '/{-$locale}/_private/profile/'
-      path: '/profile'
-      fullPath: '/{-$locale}/profile/'
-      preLoaderRoute: typeof Char123LocaleChar125PrivateProfileIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125PrivateRouteRoute
-    }
-    '/{-$locale}/_private/dashboard/': {
-      id: '/{-$locale}/_private/dashboard/'
-      path: '/dashboard'
-      fullPath: '/{-$locale}/dashboard/'
-      preLoaderRoute: typeof Char123LocaleChar125PrivateDashboardIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125PrivateRouteRoute
-    }
-    '/{-$locale}/_public/auth/sign-up': {
-      id: '/{-$locale}/_public/auth/sign-up'
-      path: '/sign-up'
-      fullPath: '/{-$locale}/auth/sign-up'
-      preLoaderRoute: typeof Char123LocaleChar125PublicAuthSignUpRouteImport
-      parentRoute: typeof Char123LocaleChar125PublicAuthRouteRoute
-    }
-    '/{-$locale}/_public/auth/sign-out': {
-      id: '/{-$locale}/_public/auth/sign-out'
-      path: '/sign-out'
-      fullPath: '/{-$locale}/auth/sign-out'
-      preLoaderRoute: typeof Char123LocaleChar125PublicAuthSignOutRouteImport
-      parentRoute: typeof Char123LocaleChar125PublicAuthRouteRoute
-    }
-    '/{-$locale}/_public/auth/sign-in': {
-      id: '/{-$locale}/_public/auth/sign-in'
-      path: '/sign-in'
-      fullPath: '/{-$locale}/auth/sign-in'
-      preLoaderRoute: typeof Char123LocaleChar125PublicAuthSignInRouteImport
-      parentRoute: typeof Char123LocaleChar125PublicAuthRouteRoute
-    }
   }
 }
-
-interface Char123LocaleChar125PrivateRouteRouteChildren {
-  Char123LocaleChar125PrivateDashboardIndexRoute: typeof Char123LocaleChar125PrivateDashboardIndexRoute
-  Char123LocaleChar125PrivateProfileIndexRoute: typeof Char123LocaleChar125PrivateProfileIndexRoute
-}
-
-const Char123LocaleChar125PrivateRouteRouteChildren: Char123LocaleChar125PrivateRouteRouteChildren =
-  {
-    Char123LocaleChar125PrivateDashboardIndexRoute:
-      Char123LocaleChar125PrivateDashboardIndexRoute,
-    Char123LocaleChar125PrivateProfileIndexRoute:
-      Char123LocaleChar125PrivateProfileIndexRoute,
-  }
-
-const Char123LocaleChar125PrivateRouteRouteWithChildren =
-  Char123LocaleChar125PrivateRouteRoute._addFileChildren(
-    Char123LocaleChar125PrivateRouteRouteChildren,
-  )
-
-interface Char123LocaleChar125PublicAuthRouteRouteChildren {
-  Char123LocaleChar125PublicAuthSignInRoute: typeof Char123LocaleChar125PublicAuthSignInRoute
-  Char123LocaleChar125PublicAuthSignOutRoute: typeof Char123LocaleChar125PublicAuthSignOutRoute
-  Char123LocaleChar125PublicAuthSignUpRoute: typeof Char123LocaleChar125PublicAuthSignUpRoute
-}
-
-const Char123LocaleChar125PublicAuthRouteRouteChildren: Char123LocaleChar125PublicAuthRouteRouteChildren =
-  {
-    Char123LocaleChar125PublicAuthSignInRoute:
-      Char123LocaleChar125PublicAuthSignInRoute,
-    Char123LocaleChar125PublicAuthSignOutRoute:
-      Char123LocaleChar125PublicAuthSignOutRoute,
-    Char123LocaleChar125PublicAuthSignUpRoute:
-      Char123LocaleChar125PublicAuthSignUpRoute,
-  }
-
-const Char123LocaleChar125PublicAuthRouteRouteWithChildren =
-  Char123LocaleChar125PublicAuthRouteRoute._addFileChildren(
-    Char123LocaleChar125PublicAuthRouteRouteChildren,
-  )
-
-interface Char123LocaleChar125RouteRouteChildren {
-  Char123LocaleChar125PrivateRouteRoute: typeof Char123LocaleChar125PrivateRouteRouteWithChildren
-  Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
-  Char123LocaleChar125PublicAuthRouteRoute: typeof Char123LocaleChar125PublicAuthRouteRouteWithChildren
-  Char123LocaleChar125PublicHomeRoute: typeof Char123LocaleChar125PublicHomeRoute
-  Char123LocaleChar125PublicPlansRoute: typeof Char123LocaleChar125PublicPlansRoute
-}
-
-const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
-  {
-    Char123LocaleChar125PrivateRouteRoute:
-      Char123LocaleChar125PrivateRouteRouteWithChildren,
-    Char123LocaleChar125404Route: Char123LocaleChar125404Route,
-    Char123LocaleChar125PublicAuthRouteRoute:
-      Char123LocaleChar125PublicAuthRouteRouteWithChildren,
-    Char123LocaleChar125PublicHomeRoute: Char123LocaleChar125PublicHomeRoute,
-    Char123LocaleChar125PublicPlansRoute: Char123LocaleChar125PublicPlansRoute,
-  }
-
-const Char123LocaleChar125RouteRouteWithChildren =
-  Char123LocaleChar125RouteRoute._addFileChildren(
-    Char123LocaleChar125RouteRouteChildren,
-  )
 
 const rootRouteChildren: RootRouteChildren = {
-  Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
+  IndexRoute: IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
