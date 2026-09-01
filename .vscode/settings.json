@@ -31,5 +31,9 @@
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
-  }
+  },
+  "intlayer.languageServer.command": "npx",
+  "intlayer.languageServer.args": [
+    "@intlayer/lsp"
+  ]
 }

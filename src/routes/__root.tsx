@@ -1,8 +1,4 @@
-import {
-  HeadContent,
-  Scripts,
-  createRootRouteWithContext,
-} from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRouteWithContext, getRouteApi } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
@@ -11,6 +7,11 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
+
+import { IntlayerProvider } from "react-intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+
+const localeRoute = getRouteApi("/{-$locale}");
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -41,13 +42,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const { locale = defaultLocale } = localeRoute.useParams();
   return (
-    <html lang="en">
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -63,5 +65,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
